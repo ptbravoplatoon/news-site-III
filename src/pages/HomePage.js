@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import ArticleList from '../components/ArticleList/ArticleList.js'
-import News from '../data/news.json';
+import fetchAPI from '../api/ArticlesAPI.js'
+
+// { fetchArticleByID, fetchArticles, fetchArticlesBySection }
 
 class HomePage extends Component {
+
+  state = {
+    articles: null
+  }
+
+  async componentDidMount() {
+    try {
+      const jsonResponse = await fetchAPI.fetchArticles()
+      this.setState({
+        articles: jsonResponse
+      })
+    } catch (error) {
+      console.error('Error occurred fetching data: ', error)
+    }
+  }
+
   render() {
     return (
       <div>
-        <ArticleList articles={News}
+        { this.state.articles ? <ArticleList articles={this.state.articles}
           handleTitleClick={(articleID) => this.props.history.push(`/articles/${articleID}`) } />
+          : <span>Loading articles...</span> }
       </div>
     );
   }

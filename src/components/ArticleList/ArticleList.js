@@ -3,16 +3,24 @@ import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class ArticleList extends Component {
-  render() {
+
+
+  printArticles = () => {
     const { articles, handleTitleClick } = this.props;
+    
+    return articles.map((article) => {
+      const articleKey = `article-${article.id}`
+      return <ListGroupItem key={ articleKey }>
+        <ArticleTeaser { ...article } handleTitleClick={handleTitleClick}/>
+      </ListGroupItem>
+    })
+  }
+
+  render() {
+    
     return (
       <ListGroup>
-        { articles.map((article, index) => (
-          <ListGroupItem>
-            <ArticleTeaser { ...article } id={ index + 1 }
-              handleTitleClick={handleTitleClick}/>
-          </ListGroupItem>
-        ))}
+        {this.printArticles()}
       </ListGroup>
     );
   }

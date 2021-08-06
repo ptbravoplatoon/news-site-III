@@ -8,7 +8,7 @@ class AppNav extends Component {
     return (
       <Navbar color="light">
         {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick( navItem.value )} >
+          <a href="#" onClick={ () => handleNavClick( navItem.value )} key={navItem.value} >
             { navItem.label } |
           </a>
         )}
