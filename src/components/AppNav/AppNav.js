@@ -1,34 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar } from 'reactstrap';
+import navData from '../../config/Sections.json'
 
-class AppNav extends Component {
-  render() {
-    const { navItems, handleNavClick } = this.props;
+const AppNav = (props) => {
 
-    return (
-      <Navbar color="light">
-        {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick( navItem.value )} key={navItem.value} >
-            { navItem.label } |
-          </a>
-        )}
-      </Navbar>
-    )
+  const { handleNavClick } = props;
+
+  const printNavBar = () => {
+    const navBarItems = navData.map( (navItem) => {
+      return <a href="#" onClick={ () => handleNavClick( navItem.value )} key={navItem.value} >
+        { navItem.label }</a>
+    })
+    return navBarItems
   }
-}
+
+  return (
+    <Navbar color="light">
+      {printNavBar()}
+    </Navbar>
+  );
+};
 
 export default AppNav;
-
-
-// Functional solution:
-// function AppNav({ navItems, handleNavClick }) {
-//   return (
-//     <Navbar color="light">
-//       {navItems.map((navItem) =>
-//         <a href="#" onClick={() => handleNavClick( navItem.value )} >
-//           { navItem.label } |
-//         </a>
-//       )}
-//     </Navbar>
-//   );
-// }
