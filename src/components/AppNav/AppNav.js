@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { Navbar } from 'reactstrap';
+import React, { Component, useState, useEffect } from 'react';
+import { Navbar, NavbarText } from 'reactstrap';
+import Sections from '../../config/Sections.json';
+import {Link} from 'react-router-dom'
 
-class AppNav extends Component {
-  render() {
-    const { navItems, handleNavClick } = this.props;
 
-    return (
-      <Navbar color="light">
-        {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick( navItem.value )} >
-            { navItem.label } |
-          </a>
-        )}
-      </Navbar>
-    )
-  }
+const AppNav = ({handleNavClick}) => {
+
+  return (
+    <Navbar color="light">
+      {Sections.map((navItem, index) =>
+        <Link to={`/section/${navItem.value}`} key = {index} >
+          { navItem.label } |
+        </Link>
+      )}
+    </Navbar>
+  )
 }
+
 
 export default AppNav;
 
