@@ -10,7 +10,7 @@ const fetchArticleByID = async (articleID) => {
 
 const fetchArticlesBySection = async (section) => {
 	try {
-		const response = await fetch(`http://localhost:3001/api/articles?filter={"where":{"section":${section}}}`);
+		const response = await fetch(`http://localhost:3001/api/articles?filter={"where":{"section":"${section}"}}`);
 		const responseBody = await response.json();
 		return responseBody;
 	} catch (error) {
