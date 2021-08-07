@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ArticleList from '../components/ArticleList/ArticleList.js'
 import ArticlesAPI from '../api/ArticlesAPI.js';
 
-class HomePage extends Component {
-  state = {
-    articles: null
-  }
+function HomePage(){
+  const [articles, setArticles] = React.useState(null)
 
-  async componentDidMount(){
-    try{
-      const articlesJson = await ArticlesAPI.fetchArticles();
-      this.setState({
-        articles: articlesJson
-      })
-    }
-    catch(error){
-      console.error('HomePage.componentDidMount: error fetching data.', error)
-    }
-  }
+  React.useEffect(() => {
+    const fetchArticlesAsync = async () =>{
+      try{
+        const articlesJson = await ArticlesAPI.fetchArticles();
+        setArticles(articlesJson)
+      }
+      catch(error){
+        console.error('HomePage.componentDidMount: error fetching data.', error)
+      }
+    };
+    if(articles === null) { fetchArticlesAsync(); }
+  }, [articles]);
 
-  render() {
-    return (
-      <div>
-        <ArticleList articles={this.state.articles}/>
-      </div>
-    );
-  }
+  return(
+    <div>
+      <ArticleList articles={articles}/>
+    </div>
+  )
 }
 
 export default HomePage;
