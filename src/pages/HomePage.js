@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import ArticleList from '../components/ArticleList/ArticleList.js'
-import News from '../data/news.json';
+import ArticlesAPI from '../api/ArticlesAPI.js';
 
 class HomePage extends Component {
+  state = {
+    articles: null
+  }
+
+  async componentDidMount(){
+    try{
+      const articlesJson = await ArticlesAPI.fetchArticles();
+      this.setState({
+        articles: articlesJson
+      })
+    }
+    catch(error){
+      console.error('HomePage.componentDidMount: error fetching data.', error)
+    }
+  }
+
   render() {
     return (
       <div>
-        <ArticleList articles={News}
-          handleTitleClick={(articleID) => this.props.history.push(`/articles/${articleID}`) } />
+        <ArticleList articles={this.state.articles}/>
       </div>
     );
   }
 }
 
 export default HomePage;
-
-
-// Functional solution:
-// function HomePage() {
-//   return (
-//     <div>
-//       <ArticleList articles={News}
-//         handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)} />
-//     </div>
-//   );
-// }
