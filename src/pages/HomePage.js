@@ -1,37 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ArticleList from '../components/ArticleList/ArticleList.js';
+import { useState, useEffect } from 'react';
 import { fetchArticles } from '../api/ArticlesAPI';
 
-class HomePage extends Component {
-	state = {
-		articles: []
-	};
+function HomePage() {
+	const [ articles, setArticles ] = useState([]);
 
-	async componentDidMount() {
+	useEffect(async () => {
 		const articleArr = await fetchArticles();
-		this.setState({
-			articles: articleArr
-		});
-	}
+		setArticles(articleArr);
+	}, []);
 
-	render() {
-		const { articles } = this.state;
-		return (
-			<div>
-				<ArticleList articles={articles} />
-			</div>
-		);
-	}
+	return (
+		<div>
+			<ArticleList
+				articles={articles}
+				handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)}
+			/>
+		</div>
+	);
 }
 
 export default HomePage;
-
-// Functional solution:
-// function HomePage() {
-//   return (
-//     <div>
-//       <ArticleList articles={News}
-//         handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)} />
-//     </div>
-//   );
-// }
