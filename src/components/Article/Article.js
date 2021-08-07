@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
-import "./article.css";
 
 class Article extends Component {
   render() {
     const { title, created_date: createdDate, abstract, byline, image } = this.props;
     return (
-      <Media>
-        <Media left>
-          { image && <img className="image" src={ image }/> }
-        </Media>
-        <Media body className="body">
-          <Media heading>{ title }</Media>
-          <p>{ createdDate }</p>
-          { byline && <p>{ byline }</p> }
-          <p>{ abstract }</p>
-        </Media>
-      </Media>
+      <>
+      <div class="row">
+      <div class="col-md-2">
+        {/* if image is null then image will not render */}
+            { image && <img src={ image } alt=""/> }
+      </div>
+  		<div class="col-md-10">
+    		<h4 class="media-heading">{title}</h4>
+        {/* if byline is null then byline will not render */}
+          {byline && <p class="text-right">By {byline}</p> }
+          <p>{abstract}</p>
+          <ul class="list-inline list-unstyled">
+  			<li><span>Created Date :  {createdDate} </span></li>
+            
+            </ul>
+       
+    </div>
+  </div>
+      
+      </>
     )
   }
 }
@@ -27,16 +34,12 @@ export default Article;
 // Functional solution:
 // function Article({ title, created_date: createdDate, abstract, byline, image }) {
 //   return (
-//     <Media>
-//        <Media left>
-//          {image && <img src={image} />}
-//        </Media>
-//        <Media body>
-//          <Media heading>{title}</Media>
-//          <p>{createdDate}</p>
-//          {byline && <h2>{byline}</h2>}
-//          <p>{abstract}</p>
-//        </Media>
-//      </Media >
+//     <div>
+//       <h1>{ title }</h1>
+//       <p>{ createdDate }</p>
+//       { byline && <h2>{byline}</h2> }
+//       { image && <img src={image} /> }
+//       <p>{ abstract }</p>
+//     </div>
 //   );
 // }

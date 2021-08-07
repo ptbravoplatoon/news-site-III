@@ -1,7 +1,11 @@
 [
   {
     "label": "HOME",
-    "value": "home"
+    "value": ""
+  },
+  {
+    "label": "ABOUT",
+    "value": "about"
   },
   {
     "label": "OPINION",
