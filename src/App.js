@@ -5,6 +5,8 @@ import './App.css';
 import AppNav from './components/AppNav/AppNav.js';
 import HomePage from './pages/HomePage.js';
 import ArticlePage from './pages/ArticlePage.js';
+import SectionPage from './pages/SectionPage.js';
+import  { fetchArticlesBySection } from './api/ArticlesAPI.js';
 
 class App extends Component {
   constructor(props) {
@@ -20,11 +22,13 @@ class App extends Component {
 
     return (
       <div>
-        <AppNav navItems={navItems} handleNavClick={(clickedItem) => console.log(clickedItem)} />
         <Router>
+        <AppNav handleNavClick={(clickedItem) =>  fetchArticlesBySection(clickedItem)} />
+
           <div>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/articles/:articleID" component={ArticlePage} />
+            <Route exact path="/section/:sectionValue" component={SectionPage} />
           </div>
         </Router>
       </div>

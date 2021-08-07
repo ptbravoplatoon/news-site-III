@@ -9,10 +9,13 @@ const fetchArticleByID = async (articleID) => {
 };
 
 const fetchArticlesBySection = async (section) => {
+  let urlTail = `"where":{"section":"${section}"}`
   try{
-    let response = await fetch(`http://localhost:3001/api/?filter={"section":{"${section}"}}`)
-    let data = await response.json()
-    return data
+    console.log(urlTail)
+    let response = await fetch(`http://localhost:3001/api/articles?filter={${urlTail}}`)
+    let filteredNews = await response.json()
+    console.log(filteredNews)
+    return filteredNews
   } catch (error) {
     console.log(error)
   }
