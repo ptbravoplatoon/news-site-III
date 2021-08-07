@@ -1,37 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Article from '../components/Article/Article.js'
-import News from '../data/news.json';
+import fetchAPI from '../api/ArticlesAPI.js'
 
-class ArticlePage extends Component {
-  render() {
-    const articleIndex = this.props.match.params.articleID - 1;
-    const article = News[articleIndex];
-    const image = article.multimedia.length ? article.multimedia[2].url : null;
+const ArticlePage = (props) => {
 
-    return (
-      <div>
-        {article ? <Article {...article } image={ image } /> :
-          <span>404: Article Not Found</span>
-        }
-      </div>
-    );
-  }
-}
+  const [article, setArticle] = useState(null)
+  const [image, setImage] = useState(null)
+
+  useEffect( () => {
+    const fetchDataAsync = async () => {
+      const articleIndex = props.match.params.articleID;
+      try {
+        const jsonResponse = await fetchAPI.fetchArticleByID(articleIndex)
+        setArticle(jsonResponse)
+        setImage(jsonResponse.image)
+      } catch (error) {
+        console.error('Error occurred fetching data: ', error)
+      }
+    }
+    if (!article) {
+      fetchDataAsync()
+    }
+  }, [article])
+
+  return (
+    <div>
+      {article ? <Article {...article } image={ image } /> : <span>Loading article...</span>}
+    </div>
+  );
+};
 
 export default ArticlePage;
-
-
-// Functional solution:
-// function ArticlePage(props) {
-//   const articleIndex = props.match.params.articleID - 1;
-//   const article = News[articleIndex];
-//   const image = article.multimedia.length ? article.multimedia[2].url : null;
-
-//   return (
-//     <div>
-//       {article ? <Article { ...article } image={ image } /> :
-//         <span>404: Article Not Found</span>
-//       }
-//     </div>
-//   );
-// }
