@@ -5,11 +5,12 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 class ArticleList extends Component {
   render() {
     const { articles, handleTitleClick } = this.props;
+    
     return (
       <ListGroup>
         { articles.map((article, index) => (
-          <ListGroupItem>
-            <ArticleTeaser { ...article } id={ index + 1 }
+          <ListGroupItem key = { article.id } >
+            <ArticleTeaser { ...article } 
               handleTitleClick={handleTitleClick}/>
           </ListGroupItem>
         ))}
