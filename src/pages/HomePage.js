@@ -1,27 +1,51 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import ArticleList from '../components/ArticleList/ArticleList.js'
-import News from '../data/news.json';
+import {fetchArticleByID, fetchArticles, fetchArticlesBySection} from '../api/ArticlesAPI'
 
-class HomePage extends Component {
-  render() {
-    return (
-      <div>
-        <ArticleList articles={News}
-          handleTitleClick={(articleID) => this.props.history.push(`/articles/${articleID}`) } />
-      </div>
-    );
-  }
+// Functional solution:
+function HomePage(props) {
+
+  const [ news, setNews ] = useState([]);
+
+  useEffect(async () => {
+		const articles = await fetchArticles();
+    setNews(articles);
+	}, []);
+
+  return (
+    <div>
+      <ArticleList articles={news} />
+    </div>
+  );
 }
+
 
 export default HomePage;
 
 
-// Functional solution:
-// function HomePage() {
-//   return (
-//     <div>
-//       <ArticleList articles={News}
-//         handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)} />
-//     </div>
-//   );
+// Class solution:
+// class HomePage extends Component {
+//   state = {
+//     news: null
+//   }
+
+//   async componentDidMount() {
+//     try {
+//       const jsonResponse = await fetchArticles()
+//       this.setState({
+//         news: jsonResponse
+//       })
+//     } catch (error) {
+//       console.error('Error occurred fetching data: ', error);
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         {this.state.news ? <ArticleList articles={this.state.news}/>
+//           : <span>Loading articles...</span> }
+//       </div>
+//     );
+//   }
 // }
