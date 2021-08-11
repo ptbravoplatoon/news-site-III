@@ -13,7 +13,6 @@ class HomePage extends Component {
       this.setState({
         news: jsonResponse
       })
-      console.log('news', news)
     } catch (error) {
       console.error('Error occurred fetching data: ', error);
     }

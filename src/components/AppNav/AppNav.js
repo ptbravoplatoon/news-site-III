@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar } from 'reactstrap';
+import { Navbar, NavItem } from 'reactstrap';
 
 class AppNav extends Component {
   render() {
@@ -8,7 +8,7 @@ class AppNav extends Component {
     return (
       <Navbar color="light">
         {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick( navItem.value )} >
+          <a href={navItem.value} onClick={ () => handleNavClick( navItem.value )} key={NavItem.label}>
             { navItem.label } |
           </a>
         )}
