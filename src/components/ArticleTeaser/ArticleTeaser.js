@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 
 // Functional solution:
-function ArticleTeaser({ id, title, created_date: createdDate, handleTitleClick }) {
+function ArticleTeaser({ id, title, created_date: createdDate }) {
   return (
     <div>
       <ListGroupItemHeading>
-        <a onClick={(e) => {
-          e.preventDefault();
-          handleTitleClick(id);
-        }}>{title}</a>
+        <Link to={`/articles/${id}`}>{title}</Link>
       </ListGroupItemHeading>
       <ListGroupItemText>{createdDate}</ListGroupItemText>
     </div>
@@ -29,10 +27,7 @@ export default ArticleTeaser;
 //     return (
 //       <div>
 //         <ListGroupItemHeading>
-//           <a onClick={(e) => {
-//             e.preventDefault();
-//             handleTitleClick(id);
-//             }}>{title}</a>
+//          <Link to={`/articles/${id}`}>{title}</Link>
 //         </ListGroupItemHeading>
 //         <ListGroupItemText>{ createdDate }</ListGroupItemText>
 //       </div>

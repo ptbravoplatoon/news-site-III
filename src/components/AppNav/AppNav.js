@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem } from 'reactstrap';
+import navItems from '../../config/Sections.json';
 
 // Functional solution:
-function AppNav({ navItems, handleNavClick }) {
+function AppNav({ handleNavClick }) {
+
   return (
     <Navbar color="light">
       {navItems.map((navItem) =>
-        <a href={navItem.value} onClick={() => handleNavClick( navItem.value )} key={NavItem.label}>
+        <a href={navItem.value} onClick={() => handleNavClick( navItem.value )} key={navItem.label}>
           { navItem.label } |
         </a>
       )}

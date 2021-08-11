@@ -14,8 +14,7 @@ function HomePage(props) {
 
   return (
     <div>
-      <ArticleList articles={news}
-        handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)} />
+      <ArticleList articles={news} />
     </div>
   );
 }
@@ -44,8 +43,7 @@ export default HomePage;
 //   render() {
 //     return (
 //       <div>
-//         {this.state.news ? <ArticleList articles={this.state.news}
-//           handleTitleClick={(articleID) => this.props.history.push(`/articles/${articleID}`) } />
+//         {this.state.news ? <ArticleList articles={this.state.news}/>
 //           : <span>Loading articles...</span> }
 //       </div>
 //     );
